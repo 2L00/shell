@@ -1,0 +1,35 @@
+
+					git
+
+
+git init       // initialize git
+
+git commit -m "add message"   // add comentaire 
+
+git status     // check the status for file
+
+git branch    // check how many branch i have
+
+git branch "name"   // named the branch, the branch is a copy of master branch
+
+git checkout "name of branch"   // go to the name branch : eg (" git checkout master ")
+
+git log       // to see the commit 
+
+git merge "name of branch"  // merge between new branch and master branch, go to branch master and do that
+
+
+
+
+
+
+				        Githup
+
+git remote -v   // check if i have connection between me and repo in githup
+
+git remote add "name_of_remote" URL.git   // add remote 
+
+git push -u "name_of_remote" master   // update the changed in master, master is default branch, check the 
+					 master name by using "git branch"
+
+git pull "name_of_remote" master  // to accepte the changing if you work with others
