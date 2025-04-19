@@ -6,7 +6,7 @@
 /*   By: abddahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 08:30:12 by abddahma          #+#    #+#             */
-/*   Updated: 2025/04/19 15:42:40 by abddahma         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:40:38 by abddahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int main(int ac, char **av, char **env)
 {
-	char **av;
+	char **prompt;
 	char **split;
 	char *read_l;
-	if (ac < 2)
-		return 0;
 	int i = 1;
+
 	while (1)
 	{
 		split = ft_split(av[i], ' ');
 
-		if (av[i] == NULL)
-			return 0;
-		read_l = readline(av[i]);
-		if (read_l == NULL)
-			return 0;
+//		if (av[i] == NULL)
+//			return 0;
+		read_l = readline("minishell->$ ");
+		if (read_l == NULL || *read_l == '\0')
+			continue;
+//			return 0;
 		printf("%s\n", read_l);
 		i++;
 	}
