@@ -6,11 +6,17 @@
 /*   By: abddahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 08:30:12 by abddahma          #+#    #+#             */
-/*   Updated: 2025/04/20 14:04:33 by abddahma         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:01:27 by snait-ai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void ft_handler(int x)
+{
+	(void)x;
+	printf("\n");
+}
 
 int main(int ac, char **argv, char **envp)
 {
@@ -23,7 +29,12 @@ int main(int ac, char **argv, char **envp)
 	pid_t pid;
 	int i = 1, x = 0;
 	int status = 0;
+	struct sigaction sa;
 
+	sa.sa_handler = ft_handler;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
 	while (1)
 	{
 		read_l = readline("minishell->$ ");
@@ -61,8 +72,10 @@ int main(int ac, char **argv, char **envp)
 						exit((perror("error \n"), 1));
 				}
 				else if (pid > 0)
+				{
 					waitpid(pid, &status, 0);
-				break;
+					return 0;
+				}
 			}
 			else if (shell.prompt[i][0] == '/')
 			{
@@ -77,8 +90,10 @@ int main(int ac, char **argv, char **envp)
 					}
 				}
 				else if (pid > 0)  
+				{
 					waitpid(pid, &status, 0);
-				break;
+					break;
+				}
 			}
 			i++;
 		}

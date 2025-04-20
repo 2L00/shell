@@ -6,7 +6,7 @@
 /*   By: abddahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 08:26:04 by abddahma          #+#    #+#             */
-/*   Updated: 2025/04/20 13:54:03 by abddahma         ###   ########.fr       */
+/*   Updated: 2025/04/20 14:33:58 by snait-ai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <errno.h>
-#include "../lib/libft.h"
-
+#include "../libft/libft.h"
+#include <signal.h>
 
 typedef struct s_shell
 {
