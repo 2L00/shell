@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abddahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By:  abddahma < abddahma@student.1337.ma>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/18 08:30:12 by abddahma          #+#    #+#             */
-/*   Updated: 2025/04/20 15:40:36 by snait-ai         ###   ########.fr       */
+/*   Created: 2025/04/20 16:27:23 by  abddahma         #+#    #+#             */
+/*   Updated: 2025/04/20 16:53:46 by abddahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int main(int ac, char **argv, char **envp)
                         printf("the user press control D\n");
                         exit(0);
                 }
+		if (*read_l == '\0')
+			continue;
 		if (strlen(read_l) != 0)
 		{
 			char str[1024];
 			add_history(read_l);
 			strcpy(str, read_l);
 		}
-		if (*read_l == '\0')
-			continue;
 		shell.prompt = ft_split(read_l, ' ');
 		i = 0;
 		while (shell.prompt[i])
@@ -57,40 +57,8 @@ int main(int ac, char **argv, char **envp)
 			i++;
 		}
 		i = 0;
-		while (shell.prompt[i])
-		{
-			if (shell.prompt[i][0] != '/')
-			{
-				char *cmd_path = find_cmd_path(shell.prompt[i], envp);
-				pid = fork();
-				if (pid == 0)
-				{
-					char **en = shell.prompt;					
-					if (execve(cmd_path, en, envp) < 0)
-						exit((perror("error \n"), 1));
-				}
-				else if (pid > 0)
-					waitpid(pid, &status, 0);
-				break;
-			}
-			else if (shell.prompt[i][0] == '/')
-			{
-				pid = fork();
-				if (pid == 0)
-				{
-					char **en = shell.prompt;
-					if (execve(shell.prompt[0], en, envp) < 0)
-					{
-						printf("bash: %s: %s\n", shell.prompt[0], strerror(errno));
-						exit((1));
-					}
-				}
-				else if (pid > 0)  
-					waitpid(pid, &status, 0);
-				break;
-			}
-			i++;
-		}
+		
+		run_simple_cmd(&shell, envp);
 
 	}
 

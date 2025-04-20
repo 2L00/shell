@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abddahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By:  abddahma < abddahma@student.1337.ma>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:41:37 by abddahma          #+#    #+#             */
-/*   Updated: 2025/04/18 08:37:42 by abddahma         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:27:42 by  abddahma        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"
 
-static int	ft_all_words(const char	*s, char c)
+static int	ft_all_words(const char *s, char c)
 {
 	int	count;
 
@@ -58,8 +57,8 @@ static char	*ft_strndup(const char *s, size_t n)
 
 static void	lines_norm(char **split_s, const char *s, char c)
 {
-	size_t			i;
-	const char		*iam_now;
+	size_t		i;
+	const char	*iam_now;
 
 	i = 0;
 	while (*s)
