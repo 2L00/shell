@@ -6,7 +6,7 @@
 /*   By: abddahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 08:30:12 by abddahma          #+#    #+#             */
-/*   Updated: 2025/04/20 15:01:27 by snait-ai         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:40:36 by snait-ai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ void ft_handler(int x)
 {
 	(void)x;
 	printf("\n");
+	return ;
 }
 
 int main(int ac, char **argv, char **envp)
 {
-	//	char *argv[] = { "ls", NULL };
-	//	char *envp[] = { NULL };
 	t_shell shell;
-
 	char **split;
 	char *read_l = NULL;
 	pid_t pid;
@@ -38,19 +36,19 @@ int main(int ac, char **argv, char **envp)
 	while (1)
 	{
 		read_l = readline("minishell->$ ");
+		if (read_l == NULL)
+                {
+                        printf("the user press control D\n");
+                        exit(0);
+                }
 		if (strlen(read_l) != 0)
 		{
 			char str[1024];
 			add_history(read_l);
 			strcpy(str, read_l);
 		}
-		else
-			printf("exit of add hist\n");
-		if (read_l == NULL)
-			break;
 		if (*read_l == '\0')
 			continue;
-
 		shell.prompt = ft_split(read_l, ' ');
 		i = 0;
 		while (shell.prompt[i])
@@ -72,10 +70,8 @@ int main(int ac, char **argv, char **envp)
 						exit((perror("error \n"), 1));
 				}
 				else if (pid > 0)
-				{
 					waitpid(pid, &status, 0);
-					return 0;
-				}
+				break;
 			}
 			else if (shell.prompt[i][0] == '/')
 			{
@@ -90,10 +86,8 @@ int main(int ac, char **argv, char **envp)
 					}
 				}
 				else if (pid > 0)  
-				{
 					waitpid(pid, &status, 0);
-					break;
-				}
+				break;
 			}
 			i++;
 		}
