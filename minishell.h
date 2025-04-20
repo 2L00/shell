@@ -6,7 +6,7 @@
 /*   By: abddahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 08:26:04 by abddahma          #+#    #+#             */
-/*   Updated: 2025/04/18 10:07:13 by abddahma         ###   ########.fr       */
+/*   Updated: 2025/04/20 13:54:03 by abddahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,23 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#include <stdio.h>
 #include <stdlib.h>
 # include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <errno.h>
 #include "../lib/libft.h"
 
 
+typedef struct s_shell
+{
+	char **prompt;
+
+}	t_shell;
+
 
 char	**ft_split(const char *s, char c);
-
+char    *find_cmd_path(char *cmd, char **envp) ;
 
 
 
