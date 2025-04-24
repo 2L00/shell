@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path_name.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By:  abddahma < abddahma@student.1337.ma>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/20 16:27:53 by  abddahma         #+#    #+#             */
+/*   Updated: 2025/04/23 18:07:24 by abddahma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-
-static void ft_free(char **str)
+static void	ft_free(char **str)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (str[i])
 	{
 		free(str[i]);
@@ -27,7 +38,6 @@ static char	*cmds_paths(char **ev)
 	}
 	return (NULL);
 }
-
 
 char	*find_cmd_path(char *cmd, char **envp)
 {
