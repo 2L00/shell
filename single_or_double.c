@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-typedef struct s_quote_state
-{
-	int		in_single;
-	int		in_double;
-	int		escape_next;
-}			t_quote_state;
-
 static void	init_quote_state(t_quote_state *state)
 {
 	state->in_single = 0;
@@ -21,7 +14,7 @@ static int	should_include_char(char c, t_quote_state *state)
 		state->escape_next = 0;
 		return (1);
 	}
-	if (c == '\\')
+	if (c == '\\' && !state->in_double && !state->in_single)
 	{
 		state->escape_next = 1;
 		return (1);
@@ -44,9 +37,11 @@ static char	*process_quotes_in_token(char *token)
 	t_quote_state	state;
 	char			*result;
 	char			*temp;
-	char			ch[2] = {0, 0};
+	char			ch[2];
 	int				i;
 
+	ch[0] = 0;
+	ch[1] = 0;
 	result = ft_strdup("");
 	i = 0;
 	if (!token || !result)

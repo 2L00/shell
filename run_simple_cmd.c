@@ -6,7 +6,7 @@
 /*   By:  abddahma < abddahma@student.1337.ma>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:28:05 by  abddahma         #+#    #+#             */
-/*   Updated: 2025/04/23 13:17:09 by abddahma         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:23:47 by abddahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ static void	with_out_backslash(t_shell *shell, char *cmd_path, char **envp,
 	if (pid == 0)
 	{
 		en = shell->prompt;
+		int i = 0;
+		while (en[i])
+		{
+			printf("en     %s\n", en[i]);
+			i++;
+		}
 		if (execve(cmd_path, en, envp) < 0)
 			exit((printf("%s: command not found\n", shell->prompt[i]), 1));
 	}

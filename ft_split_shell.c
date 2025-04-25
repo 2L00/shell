@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void init_split_state(t_split_state *state)
+static void	init_split_state(t_split_state *state)
 {
 	state->in_single = 0;
 	state->in_double = 0;
@@ -9,57 +9,55 @@ static void init_split_state(t_split_state *state)
 	state->arg_len = 0;
 }
 
-static int is_separe(char c, const char *separe)
+static int	is_separe(char c, const char *separe)
 {
 	while (*separe)
 	{
 		if (c == *separe)
-			return 1;
+			return (1);
 		separe++;
 	}
-	return 0;
+	return (0);
 }
 
-static void handle_char(t_split_state *state, const char *str, int i)
+static void	handle_char(t_split_state *state, const char *str, int i)
 {
 	if (state->escape_next)
 	{
 		state->escape_next = 0;
-		return;
+		return ;
 	}
-
-	if (str[i] == '\\' && !state->in_single)
+	if (str[i] == '\\' && !state->in_single && !state->in_double)
 	{
 		state->escape_next = 1;
-		return;
+		return ;
 	}
-
 	if (str[i] == '\'' && !state->in_double)
 	{
 		state->in_single = !state->in_single;
-		return;
+		return ;
 	}
-
 	if (str[i] == '"' && !state->in_single)
 	{
 		state->in_double = !state->in_double;
-		return;
+		return ;
 	}
 }
 
-static int count_args(const char *str, const char *separe)
+static int	count_args(const char *str, const char *separe)
 {
-	t_split_state state;
-	int count = 0;
-	int i = 0;
+	t_split_state	state;
+	int				count;
+	int				i;
 
+	count = 0;
+	i = 0;
 	init_split_state(&state);
 	while (str[i])
 	{
 		handle_char(&state, str, i);
-
-		if (!state.in_single && !state.in_double && !state.escape_next && 
-				is_separe(str[i], separe))
+		if (!state.in_single && !state.in_double && !state.escape_next
+			&& is_separe(str[i], separe))
 		{
 			if (state.arg_start != -1)
 			{
@@ -73,30 +71,30 @@ static int count_args(const char *str, const char *separe)
 		}
 		i++;
 	}
-
 	if (state.arg_start != -1)
 		count++;
-
-	return count;
+	return (count);
 }
 
-static char **fill_args(const char *str, const char *separe, char **args)
+static char	**fill_args(const char *str, const char *separe, char **args)
 {
-	t_split_state state;
-	int i = 0;
-	int arg_idx = 0;
+	t_split_state	state;
+	int				i;
+	int				arg_idx;
 
+	i = 0;
+	arg_idx = 0;
 	init_split_state(&state);
 	while (str[i])
 	{
 		handle_char(&state, str, i);
-
-		if (!state.in_single && !state.in_double && !state.escape_next && 
-				is_separe(str[i], separe))
+		if (!state.in_single && !state.in_double && !state.escape_next
+			&& is_separe(str[i], separe))
 		{
 			if (state.arg_start != -1)
 			{
-				args[arg_idx] = ft_substr(str, state.arg_start, i - state.arg_start);
+				args[arg_idx] = ft_substr(str, state.arg_start, i
+						- state.arg_start);
 				arg_idx++;
 				state.arg_start = -1;
 			}
@@ -107,29 +105,25 @@ static char **fill_args(const char *str, const char *separe, char **args)
 		}
 		i++;
 	}
-
 	if (state.arg_start != -1)
 	{
 		args[arg_idx] = ft_substr(str, state.arg_start, i - state.arg_start);
 		arg_idx++;
 	}
-
 	args[arg_idx] = NULL;
-	return args;
+	return (args);
 }
 
-char **ft_split_shell(const char *str, const char *separe)
+char	**ft_split_shell(const char *str, const char *separe)
 {
-	char **args;
-	int arg_count;
+	char	**args;
+	int		arg_count;
 
 	if (!str || !separe)
-		return NULL;
-
+		return (NULL);
 	arg_count = count_args(str, separe);
 	args = (char **)malloc(sizeof(char *) * (arg_count + 1));
 	if (!args)
-		return NULL;
-
-	return fill_args(str, separe, args);
+		return (NULL);
+	return (fill_args(str, separe, args));
 }
