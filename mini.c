@@ -6,7 +6,7 @@
 /*   By:  abddahma < abddahma@student.1337.ma>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:27:23 by  abddahma         #+#    #+#             */
-/*   Updated: 2025/04/24 19:03:21 by abddahma         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:23:56 by abddahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int ac, char **argv, char **envp)
 			shell.prompt = ft_split_shell(read_l, " \t\n");
 //			handle_all_quotes(&shell);
 			handle_shell_quotes(shell.prompt, &shell);
+//			echo "''\" \" \"
 //			single_or_double(shell.prompt, &shell);
 			i = 0;
 //			while (shell.prompt[i])
