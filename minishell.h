@@ -15,7 +15,7 @@
 
 # define _GNU_SOURCE
 
-# include "../libft/libft.h"
+# include "libft/libft.h"
 # include <errno.h>
 # include <libgen.h>
 # include <readline/history.h>
@@ -27,6 +27,12 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+
+#define RED     "\033[0;31m"
+#define YELLOW  "\033[0;33m"
+#define WHITE   "\033[0;37m"
+#define RESET        "\033[0m"
 
 typedef struct s_shell
 {
@@ -63,10 +69,10 @@ char		*find_cmd_path(char *cmd, char **envp);
 
 void		run_simple_cmd(t_shell *shell, char **envp);
 char		*create_prompt(t_shell *shell);
-int			unclosed_quotes(const char *str, t_shell *shell);
+int			unclosed_quotes(const char *str);
 void		handle_all_quotes(t_shell *shell);
 void		single_or_double(char **cmd, t_shell *shell);
-void		handle_shell_quotes(char **cmd, t_shell *shell);
+void		handle_shell_quotes(char **cmd);
 char		**ft_split_shell(const char *str, const char *delim);
 
 #endif

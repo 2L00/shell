@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	with_backslash(t_shell *shell, char *cmd_path, char **envp, int i)
+static void	with_backslash(t_shell *shell, char **envp, int i)
 {
 	pid_t	pid;
 	char	**en;
@@ -46,7 +46,6 @@ static void	with_out_backslash(t_shell *shell, char *cmd_path, char **envp,
 	if (pid == 0)
 	{
 		en = shell->prompt;
-		int i = 0;
 		while (en[i])
 		{
 			printf("en     %s\n", en[i]);
@@ -62,11 +61,9 @@ static void	with_out_backslash(t_shell *shell, char *cmd_path, char **envp,
 
 void	run_simple_cmd(t_shell *shell, char **envp)
 {
-	pid_t	pid;
 	char	*cmd_path;
-	char	**en;
 
-	int (i), status = 0;
+	int i;
 	i = 0;
 	while (shell->prompt[i])
 	{
@@ -78,7 +75,7 @@ void	run_simple_cmd(t_shell *shell, char **envp)
 		}
 		else if (shell->prompt[i][0] == '/')
 		{
-			with_backslash(shell, cmd_path, envp, i);
+			with_backslash(shell, envp, i);
 			return ;
 		}
 		i++;

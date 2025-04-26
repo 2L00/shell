@@ -63,7 +63,7 @@ static char	*process_quotes_in_token(char *token)
 	return (result);
 }
 
-void	handle_shell_quotes(char **tokens, t_shell *shell)
+void	handle_shell_quotes(char **tokens)
 {
 	char	*processed;
 	int		i;

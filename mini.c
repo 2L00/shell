@@ -6,7 +6,7 @@
 /*   By:  abddahma < abddahma@student.1337.ma>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:27:23 by  abddahma         #+#    #+#             */
-/*   Updated: 2025/04/25 13:23:56 by abddahma         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:42:20 by snait-ai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int	main(int ac, char **argv, char **envp)
 {
 	t_shell				shell;
 	char				*read_l;
-	pid_t				pid;
 	int					status;
 	struct sigaction	sa;
 
-	int (i), x = 0;
+	(void)ac;
+	(void)argv;
+	int i;
 	read_l = NULL;
 	i = 0;
 	status = 0;
@@ -38,7 +39,6 @@ int	main(int ac, char **argv, char **envp)
 	while (1)
 	{
 		read_l = create_prompt(&shell);
-//		printf("read_l    %s\n", read_l);
 		if (read_l != NULL && read_l[0] == '\0')
 		{
 			free(read_l);
@@ -48,16 +48,7 @@ int	main(int ac, char **argv, char **envp)
 		{
 			shell.command = read_l;
 			shell.prompt = ft_split_shell(read_l, " \t\n");
-//			handle_all_quotes(&shell);
-			handle_shell_quotes(shell.prompt, &shell);
-//			echo "''\" \" \"
-//			single_or_double(shell.prompt, &shell);
-			i = 0;
-//			while (shell.prompt[i])
-//			{
-//				printf(">>  %s\n", shell.prompt[i]);
-//				i++;
-//			}
+			handle_shell_quotes(shell.prompt);
 			i = 0;
 			run_simple_cmd(&shell, envp);
 		}

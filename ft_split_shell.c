@@ -22,16 +22,6 @@ static int	is_separe(char c, const char *separe)
 
 static void	handle_char(t_split_state *state, const char *str, int i)
 {
-	if (state->escape_next)
-	{
-		state->escape_next = 0;
-		return ;
-	}
-	if (str[i] == '\\' && !state->in_single && !state->in_double)
-	{
-		state->escape_next = 1;
-		return ;
-	}
 	if (str[i] == '\'' && !state->in_double)
 	{
 		state->in_single = !state->in_single;

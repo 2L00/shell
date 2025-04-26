@@ -2,7 +2,7 @@
 
 #include "minishell.h"
 
-int	unclosed_quotes(const char *str, t_shell *shell)
+int	unclosed_quotes(const char *str)
 {
 	int	in_single;
 	int	in_double;
