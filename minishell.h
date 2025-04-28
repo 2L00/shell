@@ -31,14 +31,15 @@
 typedef struct s_shell
 {
 	char	**prompt;
-
+	int		exit_status;
 	int		in_double;
 	int		in_single;
 	char	*command;
-	int expand;
+	int		expand;
 
 	char	*pwd;
 	char	**cmd;
+	char	**envp;
 
 }			t_shell;
 
@@ -55,6 +56,8 @@ typedef struct s_quote_state
 {
 	int		in_single;
 	int		in_double;
+	int		is_dollar;
+	char	**envp;
 	int		escape_next;
 }			t_quote_state;
 
@@ -68,5 +71,10 @@ void		handle_all_quotes(t_shell *shell);
 void		single_or_double(char **cmd, t_shell *shell);
 void		handle_shell_quotes(char **cmd, t_shell *shell);
 char		**ft_split_shell(const char *str, const char *delim);
+void	store_envp(char **envp, t_shell *shell);
+
+// void expand_dollar(t_quote_state *state, t_shell *shell, int *i,
+//	char *token);
+// char *expand_dollar(t_shell *shell, char *token, int *i);
 
 #endif

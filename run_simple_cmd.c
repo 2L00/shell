@@ -35,28 +35,30 @@ static void	with_backslash(t_shell *shell, char *cmd_path, char **envp, int i)
 }
 
 static void	with_out_backslash(t_shell *shell, char *cmd_path, char **envp,
-		int i)
+		int x)
 {
 	pid_t	pid;
 	char	**en;
 	int		status;
+	int		i;
 
 	status = 0;
 	pid = fork();
 	if (pid == 0)
 	{
 		en = shell->prompt;
-		int i = 0;
-		while (en[i])
-		{
-			printf("en     %s\n", en[i]);
-			i++;
-		}
+		i = x;
+		// while (en[i])
+		//{
+		//	printf("en     %s\n", en[i]);
+		//	i++;
+		//}
 		if (execve(cmd_path, en, envp) < 0)
-			exit((printf("%s: command not found\n", shell->prompt[i]), 1));
+			exit((printf("%s: command not found\n", shell->prompt[i]),
+					shell->exit_status));
 	}
 	else if (pid > 0)
-		waitpid(pid, &status, 0);
+		waitpid(pid, &shell->exit_status, 0);
 	return ;
 }
 
@@ -66,7 +68,7 @@ void	run_simple_cmd(t_shell *shell, char **envp)
 	char	*cmd_path;
 	char	**en;
 
-	int (i), status = 0;
+	int(i), status = 0;
 	i = 0;
 	while (shell->prompt[i])
 	{
