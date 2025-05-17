@@ -51,7 +51,7 @@ int	main(int ac, char **argv, char **envp)
 			shell.command = read_l;
 			shell.prompt = ft_split_shell(read_l, " \t\n");
 			handle_shell_quotes(shell.prompt, &shell);
-			run_simple_cmd(&shell, envp);
+//			run_simple_cmd(&shell, envp);
 		}
 	}
 }

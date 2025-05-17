@@ -13,10 +13,9 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define _GNU_SOURCE
-
-# include "../libft/libft.h"
+# include "libft/libft.h"
 # include <errno.h>
+# include <fcntl.h>
 # include <libgen.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -36,6 +35,12 @@ typedef struct s_shell
 	int		in_single;
 	char	*command;
 	int		expand;
+
+	int		redirect_input;
+	int		redirect_output;
+
+	char	*outfile;
+	char	*infile;
 
 	char	*pwd;
 	char	**cmd;
@@ -71,8 +76,31 @@ void		handle_all_quotes(t_shell *shell);
 void		single_or_double(char **cmd, t_shell *shell);
 void		handle_shell_quotes(char **cmd, t_shell *shell);
 char		**ft_split_shell(const char *str, const char *delim);
-void	store_envp(char **envp, t_shell *shell);
+void		store_envp(char **envp, t_shell *shell);
 
+// int redirect_output(char *token, int *pos_prompt, t_shell *shell,
+//	char *result);
+
+int			redirect_output(char *token, int *pos_prompt, t_shell *shell,
+				char *result);
+// void redirect_output (char *token, int *i, t_shell *shell, char *result);
+void		execute_command(char **args, char *input_file, char *output_file);
+
+int			handle_redirection(t_shell *shell);
+
+int			valid_input_redir(char *cmd);
+// int	valid_output_redir(char *cmd);
+int			valid_output_redir(char *command);
+int			exist_quotes(char *str);
+int			validate_redirection(char **tokens, int *i, t_shell *shell,
+				int is_input);
+// int exist_quotes(char *str);
+
+void		init_shell_redir(t_shell *shell);
+void		init_quote_state(t_quote_state *state);
+char		*get_env_value(char **envp, char *var_name);
+int			should_include_char(char c, t_quote_state *state);
+char		*expand_dollar(t_shell *shell, char *token, int *i);
 // void expand_dollar(t_quote_state *state, t_shell *shell, int *i,
 //	char *token);
 // char *expand_dollar(t_shell *shell, char *token, int *i);
