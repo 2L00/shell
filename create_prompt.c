@@ -13,7 +13,7 @@ char	*create_prompt(t_shell *shell)
 		perror("getcwd() error");
 		exit((1));
 	}
-	str = ft_strjoin(cwd, "->$");
+	str = ft_strjoin(cwd, "->$  ");
 	shell->pwd = str;
 	read_l = readline(str);
 	if (read_l == NULL)

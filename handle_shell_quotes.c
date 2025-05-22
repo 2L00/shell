@@ -223,41 +223,15 @@ void	handle_shell_quotes(char **tokens, t_shell *shell)
 	int		i;
 
   init_shell_redir(shell);
-  if (ft_strchr(shell->command, '>') && valid_output_redir(shell->command) == 0)
-  {
-    ft_putstr_fd("minishell: syntax error: parse error\n", 2);
+  
+  if (valid_output_redir(shell->command) == 0)
     return;
-  }
-  if (ft_strchr(shell->command, '<') && valid_input_redir(shell->command) == 0)
-  {
-    ft_putstr_fd("minishell: syntax error: parse error\n", 2);
-    return;
-  }
-	i = 0;
-  // else if (valid_input_redir(shell->command) == 0) {
-  //
-  //   printf("invalid      in\n");
-  //     return;
-  // }
-  //
-  // else
-  //     printf("valid : )))))\n");
 
+	i = 0;
 	if (!tokens)
 		return ;
 	while (tokens[i])
   {
-    // if (valid_output_redir(tokens[i]))
-    // {
-    //   printf("invalid     out\n");
-    // }
-
-
-
-
-
-
-
 
 		// processed = process_quotes_in_token(tokens[i], shell, i);
 		// if (processed)
@@ -269,6 +243,6 @@ void	handle_shell_quotes(char **tokens, t_shell *shell)
 		i++;
 	}
 //  printf("\033[31m%d\033[0m\n", shell->redirect_output);
-  //execute_command_shell(shell);
+// execute_command_shell(shell);
 
 }
