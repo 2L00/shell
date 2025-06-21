@@ -1,78 +1,47 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abddahma <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/18 08:26:04 by abddahma          #+#    #+#             */
-/*   Updated: 2025/04/25 13:23:59 by abddahma         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
 
-# define _GNU_SOURCE
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-# include "libft/libft.h"
-# include <errno.h>
-# include <libgen.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <signal.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <unistd.h>
-
-
-#define RED     "\033[0;31m"
-#define YELLOW  "\033[0;33m"
-#define WHITE   "\033[0;37m"
-#define RESET        "\033[0m"
-
-typedef struct s_shell
+// enum user define data type 0
+typedef enum e_lexer
 {
-	char	**prompt;
+    cmd,// 0
+    word,// 1
+    pipe,// 2
+    in_red,// 3
+    out_red,// 4
+    herdoc,// 5
+    append,// 6
+    variable,// 7
+} t_lexer;
 
-	int		in_double;
-	int		in_single;
-	char	*command;
-	int expand;
-
-	char	*pwd;
-	char	**cmd;
-
-}			t_shell;
-
-typedef struct s_split_state
+typedef enum e_quote 
 {
-	int		in_single;
-	int		in_double;
-	int		escape_next;
-	int		arg_start;
-	int		arg_len;
-}			t_split_state;
+    no_quote,
+    SINGLE_QUOTE,
+    DOUBLE_QUOTE
+} t_quote;
 
-typedef struct s_quote_state
+typedef struct s_token
 {
-	int		in_single;
-	int		in_double;
-	int		escape_next;
-}			t_quote_state;
+    t_lexer type;
+    char *value;
+    int join;// 1 = join | 0 == no join
+    t_quote qoute;
+    struct s_token *next;
+} t_token;
 
-char		**ft_split(const char *s, char c);
-char		*find_cmd_path(char *cmd, char **envp);
-
-void		run_simple_cmd(t_shell *shell, char **envp);
-char		*create_prompt(t_shell *shell);
-int			unclosed_quotes(const char *str);
-void		handle_all_quotes(t_shell *shell);
-void		single_or_double(char **cmd, t_shell *shell);
-void		handle_shell_quotes(char **cmd);
-char		**ft_split_shell(const char *str, const char *delim);
+int is_operatore(char c);
+int is_space(char ch);
+int ft_find_closed_quote(char *str, char q);
+void ft_add_token_back(t_token **lst, t_token *new);
+void check_closed_quote(char *str);
+t_token *create_token(char *content, t_lexer new_type, int x);
+char *ft_substr(char const *s, unsigned int start, size_t len);
+void ft_tokenizing_the_input(char *check, t_token **token);
 
 #endif

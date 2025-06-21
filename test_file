@@ -1,0 +1,3 @@
+input : in bash : VAR=value echo hello -> the output : hello
+
+i have to fixe this case in " ' => echo "hello" "world" in the join should be 0 not 1 
